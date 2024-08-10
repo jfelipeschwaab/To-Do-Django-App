@@ -1,0 +1,103 @@
+/* Estilos para o modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Tornando o fundo um pouco mais escuro */
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px; /* Adicionando bordas arredondadas */
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Adicionando sombra para efeito de elevação */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #000; /* Tornando o 'X' preto ao passar o mouse */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px; /* Adicionando bordas arredondadas aos botões */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Suavizando a transição ao passar o mouse */
+}
+
+.btn:hover {
+    background-color: #45a039;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px; /* Aumentando um pouco o padding para mais espaço */
+}
+
+th {
+    background-color: #333;
+    color: white;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.important {
+    text-align: center;
+}
+
+.important .star {
+    font-size: 24px;
+    color: #1E90FF;
+    cursor: pointer;
+    transition: color 0.3s ease; /* Suavizando a transição de cor ao passar o mouse */
+}
+
+.important .star:hover {
+    color: #FF4500;
+}
+
+.due-date {
+    color: red;
+}
+
+header {
+    text-align: center;
+}
+to-do-table {
+    padding: 20px;
+    margin: 20px;
+}

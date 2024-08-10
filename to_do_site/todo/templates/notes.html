@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'todo/css/styles.css' %}">
+</head>
+<body>
+    <header class="header"><h1 class="tarefas-joao-title">Tarefas do dia</h1></header>
+    <!-- Botão para abrir o modal -->
+    <button id="myBtn" class="btn">Nova Tarefa</button>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <!-- Conteúdo do Modal -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Criar Nova Tarefa</h2>
+            <form id="createTaskForm" method="POST" action="{% url 'create_note' %}">
+                {% csrf_token %}
+                <label for="name_task">Nome da Tarefa:</label>
+                <input type="text" id="name_task" name="name_task" required><br><br>
+
+                <label for="description">Descrição:</label>
+                <textarea id="description" name="description" required></textarea><br><br>
+
+                <button type="submit" class="btn">Salvar Tarefa</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de Tarefas -->
+    <table class="to-do-table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Data de Vencimento</th>
+                <th>Importância</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in notes %}
+            <tr class="task-row" data-id="{{ note.id }}" data-title="{{ note.name_task }}" data-description="{{ note.description }}" data-duedate="{{ note.end_date|date:"d/m/Y" }}">
+                <td>{{ note.name_task }}</td>
+                <td class="due-date">{{ note.end_date|date:"d/m/Y" }}</td>  <!-- Substitua end_date se você tiver um campo de data de vencimento -->
+                <td class="important"><span class="star">&#9734;</span></td> <!-- Usando um ícone de estrela para marcar a importância -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal para Visualizar e Excluir Tarefa -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="taskTitle"></h2>
+            <p id="taskDescription"></p>
+            <p id="taskDueDate"></p>
+            <form id="deleteTaskForm" method="POST" action="">
+                {% csrf_token %}
+                <button type="submit" class="btn">Excluir Tarefa</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Incluindo o arquivo JavaScript -->
+    <script src="{% static 'todo/js/main.js' %}"></script>
+
+</body>
+</html>
