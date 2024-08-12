@@ -111,4 +111,8 @@ header {
 .completed {
     text-decoration: line-through;
     color: gray;
+    
+}
+.task-completed {
+    background-color: #d4edda;
 }

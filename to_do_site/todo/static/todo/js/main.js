@@ -84,8 +84,10 @@ document.addEventListener("DOMContentLoaded", function() {
             // Adiciona ou remove a classe 'completed' ao <td> com base no estado da checkbox
             if (this.checked) {
                 taskNameCell.classList.add('completed');
+                row.classList.add('task-completed');
             } else {
                 taskNameCell.classList.remove('completed');
+                row.classList.remove('task-completed');
             }
         });
     });
