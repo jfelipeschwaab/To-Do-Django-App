@@ -103,6 +103,7 @@ header {
 
 .to-do-div {
     display: flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -115,4 +116,8 @@ header {
 }
 .task-completed {
     background-color: #d4edda;
+}
+
+h2 {
+    text-align: center;
 }

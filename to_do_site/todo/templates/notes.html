@@ -34,7 +34,7 @@
 
     <!-- Lista de Tarefas -->
     <div class="to-do-div">
-        <table class="to-do-table">
+        <table class="to-do-table" id="pendingTasksTable">
             <thead>
                 <tr>
                     <th>Concluído</th>
@@ -52,6 +52,22 @@
                     <td class="important"><span class="star">&#9734;</span></td>
                 </tr>
                 {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <h2>Tarefas Concluídas</h2>
+    <div class="to-do-div">
+        <table class="to-do-table" id="completedTasksTable">
+            <thead>
+                <tr>
+                    <th>Concluído</th>
+                    <th>Título</th>
+                    <th>Data de Vencimento</th>
+                    <th>Importância</th>
+                </tr>
+            </thead>
+            <tbody>
+
             </tbody>
         </table>
     </div>

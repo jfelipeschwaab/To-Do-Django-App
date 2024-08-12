@@ -36,6 +36,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    const pendingTasksTable = document.getElementById("pendingTasksTable").querySelector("tbody");
+    const completedTasksTable = document.getElementById("completedTasksTable").querySelector("tbody");
+
+
     // Configuração do clique em uma tarefa na tabela
     var taskRows = document.querySelectorAll(".task-row");
 
@@ -85,9 +89,11 @@ document.addEventListener("DOMContentLoaded", function() {
             if (this.checked) {
                 taskNameCell.classList.add('completed');
                 row.classList.add('task-completed');
+                completedTasksTable.appendChild(row);
             } else {
                 taskNameCell.classList.remove('completed');
                 row.classList.remove('task-completed');
+                pendingTasksTable.appendChild(row);
             }
         });
     });
