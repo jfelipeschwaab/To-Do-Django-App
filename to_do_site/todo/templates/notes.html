@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'todo/css/styles.css' %}">
 </head>
 <body>
-    <header class="header"><h1 class="tarefas-joao-title">Tarefas do dia</h1></header>
-    <!-- Botão para abrir o modal -->
-    <button id="myBtn" class="btn">Nova Tarefa</button>
-
+    <header class="header">
+        <h1 class="tarefas-joao-title">Tarefas do dia</h1>
+        <button id="myBtn" class="btn">Nova Tarefa</button>
+    </header>
     <!-- Modal -->
     <div id="myModal" class="modal">
         <!-- Conteúdo do Modal -->
@@ -24,32 +24,38 @@
                 <label for="description">Descrição:</label>
                 <textarea id="description" name="description" required></textarea><br><br>
 
+                <label for="end_date">Data de término</label>
+                <input type="date" id="end_date" name="end_date">
+
                 <button type="submit" class="btn">Salvar Tarefa</button>
             </form>
         </div>
     </div>
 
     <!-- Lista de Tarefas -->
-    <table class="to-do-table">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Data de Vencimento</th>
-                <th>Importância</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for note in notes %}
-            <tr class="task-row" data-id="{{ note.id }}" data-title="{{ note.name_task }}" data-description="{{ note.description }}" data-duedate="{{ note.end_date|date:"d/m/Y" }}">
-                <td>{{ note.name_task }}</td>
-                <td class="due-date">{{ note.end_date|date:"d/m/Y" }}</td>  <!-- Substitua end_date se você tiver um campo de data de vencimento -->
-                <td class="important"><span class="star">&#9734;</span></td> <!-- Usando um ícone de estrela para marcar a importância -->
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="to-do-div">
+        <table class="to-do-table">
+            <thead>
+                <tr>
+                    <th>Concluído</th>
+                    <th>Título</th>
+                    <th>Data de Vencimento</th>
+                    <th>Importância</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for note in notes %}
+                <tr class="task-row" data-id="{{ note.id }}" data-title="{{ note.name_task }}" data-description="{{ note.description }}" data-duedate="{{ note.end_date|date:"d/m/Y" }}">
+                    <td><input type="checkbox" class="complete-checkbox"></td>
+                    <td>{{ note.name_task }}</td>
+                    <td class="due-date">{{ note.end_date|date:"d/m/Y" }}</td>
+                    <td class="important"><span class="star">&#9734;</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <!-- Modal para Visualizar e Excluir Tarefa -->
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>

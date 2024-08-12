@@ -51,14 +51,16 @@
 }
 
 table {
-    width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    padding: 20px;
+    margin: 20px;
+    width: 80%;
 }
 
 th, td {
-    border: 1px solid #ddd;
     padding: 10px; /* Aumentando um pouco o padding para mais espaço */
+    border-radius: 10px;
 }
 
 th {
@@ -97,7 +99,16 @@ tr:hover {
 header {
     text-align: center;
 }
-to-do-table {
-    padding: 20px;
-    margin: 20px;
+
+
+.to-do-div {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
 }

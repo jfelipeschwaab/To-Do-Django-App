@@ -1,24 +1,3 @@
-var modal = document.getElementById("myModal");
-
-var btn = document.getElementById("myBtn");
-
-// Aqui, você deveria usar querySelector se você tem certeza de que há apenas um elemento com a classe 'close'.
-var span = document.getElementsByClassName("close")[0];  // Corrigido: usando `getElementsByClassName` para pegar o primeiro elemento com a classe 'close'
-
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-span.onclick = function () {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal){
-        modal.style.display = "none";
-    }
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     // Referências para os modais e botões
     var createModal = document.getElementById("myModal");
@@ -58,10 +37,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Configuração do clique em uma tarefa na tabela
-    var taskRows = document.getElementsByClassName("task-row");
-    
-    Array.from(taskRows).forEach(function(row) {
-        row.onclick = function() {
+    var taskRows = document.querySelectorAll(".task-row");
+
+    taskRows.forEach(function(row) {
+        // Adiciona o evento de clique na linha da tabela
+        row.addEventListener('click', function(event) {
+            // Verifica se o elemento clicado foi uma checkbox
+            if (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'checkbox') {
+                // Se for uma checkbox, não faça nada (deixe o checkbox handle)
+                return;
+            }
+
             var taskId = this.getAttribute("data-id");
             var taskName = this.getAttribute("data-title");
             var taskDesc = this.getAttribute("data-description");
@@ -77,9 +63,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Mostrando o modal de visualização/exclusão de tarefa
             taskModal.style.display = "block";
-        }
+        });
+    });
+
+    // Seleciona todas as checkboxes
+    const checkboxes = document.querySelectorAll('.complete-checkbox');
+
+    // Itera por cada checkbox para adicionar o event listener
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function(event) {
+            // Previne o clique na checkbox de abrir o modal
+            event.stopPropagation();
+
+            // Encontra a linha da tabela correspondente
+            const row = this.closest('tr');
+
+            // Seleciona o <td> que contém o nome da tarefa
+            const taskNameCell = row.querySelector('td:nth-child(2)');
+
+            // Adiciona ou remove a classe 'completed' ao <td> com base no estado da checkbox
+            if (this.checked) {
+                taskNameCell.classList.add('completed');
+            } else {
+                taskNameCell.classList.remove('completed');
+            }
+        });
     });
 });
-
-
-

@@ -13,11 +13,12 @@ def create_note(request):
         # Captura os dados do formulário
         name_task = request.POST.get('name_task')
         description = request.POST.get('description')
-        
+        end_date = request.POST.get('end_date')
         # Cria uma nova nota com os dados do formulário
         new_note = Note(
             name_task=name_task,
-            description=description
+            description=description,
+            end_date=end_date
         )
         new_note.save()  # Salva a nova nota no banco de dados
         
