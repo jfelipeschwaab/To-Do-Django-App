@@ -11,9 +11,9 @@ def delete_note_view(request, note_id):
 def create_note(request):
     if request.method == "POST":
         # Captura os dados do formulário
-        name_task = request.POST.get('name_task')
-        description = request.POST.get('description')
-        end_date = request.POST.get('end_date')
+        name_task = request.POST.get('taskTitle')
+        description = request.POST.get('taskDescription')
+        end_date = request.POST.get('taskDueDate')
         # Cria uma nova nota com os dados do formulário
         new_note = Note(
             name_task=name_task,

@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Referências para os modais e botões
-    var createModal = document.getElementById("myModal");
-    var taskModal = document.getElementById("taskModal");
-    var btn = document.getElementById("myBtn");
-    var closeCreateModal = document.querySelector("#myModal .close");
-    var closeTaskModal = document.querySelector("#taskModal .close");
+    var createModal = document.getElementById("createTaskModal"); // Corrigido ID do modal de criação
+    var editModal = document.getElementById("editTaskModal"); // Corrigido ID do modal de edição
+    var btn = document.getElementById("myBtn"); // Botão para abrir o modal de criação
+    var closeCreateModal = createModal.querySelector(".close"); // Corrigido fechamento do modal de criação
+    var closeEditModal = editModal.querySelector(".close"); // Corrigido fechamento do modal de edição
 
     // Botões e elementos do modal de tarefa
     var taskTitleInput = document.getElementById("taskTitleInput");
@@ -23,17 +23,17 @@ document.addEventListener("DOMContentLoaded", function() {
         createModal.style.display = "none";
     }
 
-    // Fecha o modal de tarefa existente
-    closeTaskModal.onclick = function() {
-        taskModal.style.display = "none";
+    // Fecha o modal de edição de tarefa existente
+    closeEditModal.onclick = function() {
+        editModal.style.display = "none";
     }
 
     // Fecha qualquer modal ao clicar fora do conteúdo
     window.onclick = function(event) {
         if (event.target == createModal) {
             createModal.style.display = "none";
-        } else if (event.target == taskModal) {
-            taskModal.style.display = "none";
+        } else if (event.target == editModal) {
+            editModal.style.display = "none";
         }
     }
 
@@ -57,18 +57,17 @@ document.addEventListener("DOMContentLoaded", function() {
             var taskDesc = this.getAttribute("data-description");
             var taskDate = this.getAttribute("data-duedate");
 
-            // Preenchendo o modal com as informações da tarefa
+            // Preenchendo o modal de edição com as informações da tarefa
             taskTitleInput.value = taskName;
             taskDescriptionInput.value = taskDesc;
             taskDueDate.innerText = "Data de Vencimento: " + taskDate;
 
             // Configurando a ação dos formulários de edição e exclusão
-            // MODIFICAÇÃO: Aqui, a ação dos formulários de edição e exclusão foi configurada com base no ID da tarefa.
             editTaskForm.action = "/todo/notes/edit/" + taskId + "/";
             deleteTaskForm.action = "/todo/notes/delete/" + taskId + "/";
 
-            // Mostrando o modal de visualização/exclusão de tarefa
-            taskModal.style.display = "block";
+            // Mostrando o modal de edição/exclusão de tarefa
+            editModal.style.display = "block";
         });
     });
 
@@ -82,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
             event.stopPropagation();
 
             // Envia o formulário automaticamente ao marcar/desmarcar o checkbox
-            // MODIFICAÇÃO: Adicionei a linha abaixo para submeter automaticamente o formulário quando o checkbox for alterado.
             this.form.submit(); 
 
             // Encontra a linha da tabela correspondente

@@ -10,15 +10,31 @@
         <h1 class="tarefas-joao-title">Tarefas do dia</h1>
         <button id="myBtn" class="btn">Nova Tarefa</button>
     </header>
+    <div id="createTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Criar Nova Tarefa</h2>
+            <form id="createTaskForm" method="POST" action="/todo/notes/create/">
+                {% csrf_token %}
+                <label for="newTaskTitle">Título:</label>
+                <input type="text" id="newTaskTitle" name="taskTitle" required>
+                <label for="newTaskDescription">Descrição:</label>
+                <textarea id="newTaskDescription" name="taskDescription" required></textarea>
+                <label for="newTaskDueDate">Data de Vencimento:</label>
+                <input type="date" id="newTaskDueDate" name="taskDueDate" required>
+                <button type="submit" class="btn">Criar Tarefa</button>
+            </form>
+        </div>
+    </div>
     <!-- Modal -->
-    <div id="taskModal" class="modal">
+    <div id="editTaskModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Editar Tarefa</h2>
             <form id="editTaskForm" method="POST" action="">
                 {% csrf_token %}
                 <label for="taskTitleInput">Título:</label>
-                <input type="text" id="taskTitleInput" name="taskTitle" value="" required>
+                <input type="text" id="taskTitleInput" name="taskTitle" required>
                 <label for="taskDescriptionInput">Descrição:</label>
                 <textarea id="taskDescriptionInput" name="taskDescription" required></textarea>
                 <label for="taskDueDate">Data de Vencimento:</label>
