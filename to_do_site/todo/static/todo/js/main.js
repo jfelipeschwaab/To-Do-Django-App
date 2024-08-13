@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const pendingTasksTable = document.getElementById("pendingTasksTable").querySelector("tbody");
     const completedTasksTable = document.getElementById("completedTasksTable").querySelector("tbody");
 
-
     // Configuração do clique em uma tarefa na tabela
     var taskRows = document.querySelectorAll(".task-row");
 
@@ -63,7 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
             taskDescriptionInput.value = taskDesc;
             taskDueDate.innerText = "Data de Vencimento: " + taskDate;
 
-            editTaskForm.action = "/todo/notes/edit/" + taskId + "/"
+            // Configurando a ação dos formulários de edição e exclusão
+            // MODIFICAÇÃO: Aqui, a ação dos formulários de edição e exclusão foi configurada com base no ID da tarefa.
+            editTaskForm.action = "/todo/notes/edit/" + taskId + "/";
             deleteTaskForm.action = "/todo/notes/delete/" + taskId + "/";
 
             // Mostrando o modal de visualização/exclusão de tarefa
@@ -79,6 +80,10 @@ document.addEventListener("DOMContentLoaded", function() {
         checkbox.addEventListener('change', function(event) {
             // Previne o clique na checkbox de abrir o modal
             event.stopPropagation();
+
+            // Envia o formulário automaticamente ao marcar/desmarcar o checkbox
+            // MODIFICAÇÃO: Adicionei a linha abaixo para submeter automaticamente o formulário quando o checkbox for alterado.
+            this.form.submit(); 
 
             // Encontra a linha da tabela correspondente
             const row = this.closest('tr');

@@ -11,67 +11,6 @@
         <button id="myBtn" class="btn">Nova Tarefa</button>
     </header>
     <!-- Modal -->
-    <div id="myModal" class="modal">
-        <!-- Conteúdo do Modal -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Criar Nova Tarefa</h2>
-            <form id="createTaskForm" method="POST" action="{% url 'create_note' %}">
-                {% csrf_token %}
-                <label for="name_task">Nome da Tarefa:</label>
-                <input type="text" id="name_task" name="name_task" required><br><br>
-
-                <label for="description">Descrição:</label>
-                <textarea id="description" name="description" required></textarea><br><br>
-
-                <label for="end_date">Data de término</label>
-                <input type="date" id="end_date" name="end_date">
-
-                <button type="submit" class="btn">Salvar Tarefa</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Lista de Tarefas -->
-    <div class="to-do-div">
-        <table class="to-do-table" id="pendingTasksTable">
-            <thead>
-                <tr>
-                    <th>Concluído</th>
-                    <th>Título</th>
-                    <th>Data de Vencimento</th>
-                    <th>Importância</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for note in notes %}
-                <tr class="task-row" data-id="{{ note.id }}" data-title="{{ note.name_task }}" data-description="{{ note.description }}" data-duedate="{{ note.end_date|date:"d/m/Y" }}">
-                    <td><input type="checkbox" class="complete-checkbox"></td>
-                    <td>{{ note.name_task }}</td>
-                    <td class="due-date">{{ note.end_date|date:"d/m/Y" }}</td>
-                    <td class="important"><span class="star">&#9734;</span></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <h2>Tarefas Concluídas</h2>
-    <div class="to-do-div">
-        <table class="to-do-table" id="completedTasksTable">
-            <thead>
-                <tr>
-                    <th>Concluído</th>
-                    <th>Título</th>
-                    <th>Data de Vencimento</th>
-                    <th>Importância</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
-
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -82,7 +21,7 @@
                 <input type="text" id="taskTitleInput" name="taskTitle" value="" required>
                 <label for="taskDescriptionInput">Descrição:</label>
                 <textarea id="taskDescriptionInput" name="taskDescription" required></textarea>
-                <label for="taskDueDate">Data de Vencimento: </label>
+                <label for="taskDueDate">Data de Vencimento:</label>
                 <p id="taskDueDate"></p>
                 <button type="submit" class="btn">Salvar Alterações</button>
             </form>
@@ -92,7 +31,60 @@
             </form>
         </div>
     </div>
-
+    
+    <h2>Tarefas Pendentes</h2>
+    <table id="pendingTasksTable">
+        <thead>
+            <tr>
+                <th>Concluído</th>
+                <th>Título</th>
+                <th>Data de Vencimento</th>
+                <th>Importância</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in pending_notes %}
+            <tr class="task-row" data-id="{{ note.id }}" data-title="{{ note.name_task }}" data-description="{{ note.description }}" data-duedate="{{ note.end_date }}">
+                <td>
+                    <form method="POST" action="{% url 'toggle_completion' note.id %}">
+                        {% csrf_token %}
+                        <input type="checkbox" class="complete-checkbox" onchange="this.form.submit()" {% if note.completed %}checked{% endif %}>
+                    </form>
+                </td>
+                <td>{{ note.name_task }}</td>
+                <td class="due-date" style="color:red">{{ note.end_date }}</td>
+                <td class="important"><span class="star">☆</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2>Tarefas Concluídas</h2>
+    <table id="completedTasksTable">
+        <thead>
+            <tr>
+                <th>Concluído</th>
+                <th>Título</th>
+                <th>Data de Vencimento</th>
+                <th>Importância</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in completed_notes %}
+            <tr class="task-row task-completed" data-id="{{ note.id }}" data-title="{{ note.name_task }}" data-description="{{ note.description }}" data-duedate="{{ note.end_date }}">
+                <td>
+                    <form method="POST" action="{% url 'toggle_completion' note.id %}">
+                        {% csrf_token %}
+                        <input type="checkbox" class="complete-checkbox" onchange="this.form.submit()" checked>
+                    </form>
+                </td>
+                <td class="completed">{{ note.name_task }}</td>
+                <td class="due-date" style="color:red">{{ note.end_date }}</td>
+                <td class="important"><span class="star">☆</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <!-- Incluindo o arquivo JavaScript -->
     <script src="{% static 'todo/js/main.js' %}"></script>

@@ -9,6 +9,7 @@ class Note(models.Model):
     description = models.CharField(default=None,max_length= 300)
     created_date = models.DateField(auto_now=False, auto_now_add=True)
     end_date = models.DateTimeField(default=default_end_date)
+    completed = models.BooleanField(default=False)
     
     def __str__(self):
         return self.name_task

@@ -28,12 +28,12 @@ def create_note(request):
 
 
 def notes(request):
-    all_notes = Note.objects.all() ##Retorna todas as notas
-    for note in all_notes:
-        print(f"ID: {note.id}, Tarefa: {note.name_task}, Descrição: {note.description}, Data de criação: {note.created_date}")
+    pending_notes = Note.objects.filter(completed=False)
+    completed_notes = Note.objects.filter(completed=True)
+    
         
         
-    return render(request, 'notes.html', {'notes': all_notes})
+    return render(request, 'notes.html', {'pending_notes': pending_notes, 'completed_notes': completed_notes})
 
 
 def edit_note_view(request, note_id):
@@ -47,4 +47,10 @@ def edit_note_view(request, note_id):
     
     return render(request, 'notes.html', {'note': note})
 
+
+def toggle_completion_view(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    note.completed = not note.completed
+    note.save()
+    return redirect(reverse('notes'))
     

@@ -10,5 +10,5 @@ urlpatterns = [
     path('notes/create/', create_note, name='create_note'),
     path('notes/delete/<int:note_id>/', delete_note_view, name='delete_note'),
     path('notes/edit/<int:note_id>/', edit_note_view, name='edit_note'),
-
+    path('notes/toggle/<int:note_id>/', toggle_completion_view, name="toggle_completion")
 ]
