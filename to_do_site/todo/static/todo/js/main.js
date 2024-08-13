@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var closeTaskModal = document.querySelector("#taskModal .close");
 
     // Botões e elementos do modal de tarefa
-    var taskTitle = document.getElementById("taskTitle");
-    var taskDescription = document.getElementById("taskDescription");
+    var taskTitleInput = document.getElementById("taskTitleInput");
+    var taskDescriptionInput = document.getElementById("taskDescriptionInput");
     var taskDueDate = document.getElementById("taskDueDate");
+    var editTaskForm = document.getElementById("editTaskForm");
     var deleteTaskForm = document.getElementById("deleteTaskForm");
 
     // Abre o modal para criar nova tarefa
@@ -58,11 +59,11 @@ document.addEventListener("DOMContentLoaded", function() {
             var taskDate = this.getAttribute("data-duedate");
 
             // Preenchendo o modal com as informações da tarefa
-            taskTitle.innerText = taskName;
-            taskDescription.innerText = "Descrição: " + taskDesc;
+            taskTitleInput.value = taskName;
+            taskDescriptionInput.value = taskDesc;
             taskDueDate.innerText = "Data de Vencimento: " + taskDate;
 
-            // Configurando o formulário de exclusão
+            editTaskForm.action = "/todo/notes/edit/" + taskId + "/"
             deleteTaskForm.action = "/todo/notes/delete/" + taskId + "/";
 
             // Mostrando o modal de visualização/exclusão de tarefa

@@ -35,4 +35,16 @@ def notes(request):
         
     return render(request, 'notes.html', {'notes': all_notes})
 
+
+def edit_note_view(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    
+    if request.method == "POST":
+        note.name_task = request.POST.get('taskTitle')
+        note.description = request.POST.get('taskDescription')
+        note.save()
+        return redirect(reverse('notes'))
+    
+    return render(request, 'notes.html', {'note': note})
+
     

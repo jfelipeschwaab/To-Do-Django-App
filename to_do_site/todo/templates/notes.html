@@ -75,9 +75,17 @@
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2 id="taskTitle"></h2>
-            <p id="taskDescription"></p>
-            <p id="taskDueDate"></p>
+            <h2>Editar Tarefa</h2>
+            <form id="editTaskForm" method="POST" action="">
+                {% csrf_token %}
+                <label for="taskTitleInput">Título:</label>
+                <input type="text" id="taskTitleInput" name="taskTitle" value="" required>
+                <label for="taskDescriptionInput">Descrição:</label>
+                <textarea id="taskDescriptionInput" name="taskDescription" required></textarea>
+                <label for="taskDueDate">Data de Vencimento: </label>
+                <p id="taskDueDate"></p>
+                <button type="submit" class="btn">Salvar Alterações</button>
+            </form>
             <form id="deleteTaskForm" method="POST" action="">
                 {% csrf_token %}
                 <button type="submit" class="btn">Excluir Tarefa</button>
